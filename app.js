@@ -2,8 +2,35 @@
 
 let budgetController = (function () {
   
-   // some 
-     
+   // Expense function constructor 
+
+   let Expense = function(id,description,value) {
+       this.id = id;
+       this.description = description;
+       this.value = value;
+   }
+
+    // Income function constructor 
+
+    let Income = function(id,description,value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    }
+
+    // data object which contain the expenses and incomes and the totals for exps and incs
+    
+    let data = {
+        allItems : {
+            inc : [],
+            exp : []
+        },
+        totals: {
+            inc : 0,
+            exp : 0
+        }
+    }
+    
 })();
 
 // the user interface model 
@@ -13,7 +40,8 @@ let UIController = (function () {
     let DOMStrings = {
         inputType : '.add__type',
         inputDescription : '.add__description',
-        inputValue : '.add__value'
+        inputValue : '.add__value',
+        addInput   : '.add__btn'
     };
 
     return {
@@ -24,6 +52,9 @@ let UIController = (function () {
                 description : document.querySelector(DOMStrings.inputDescription).value,
                 value : document.querySelector(DOMStrings.inputValue).value
             }
+        },
+        getDomStrings : function () {
+           return DOMStrings;  
         }
     } 
 
@@ -33,52 +64,65 @@ let UIController = (function () {
 
 let controller = (function name(budgCtrl,UiCtrl) {
 
-  let add_btn = document.querySelector('.add__btn');
+         // making the control add item function 
 
-     // making the control add item function 
-
-     var ctrlAddItem = function() {
+         let ctrlAddItem = function() {
     
-        // 1 - get the field input data
+            // 1 - get the field input data
+    
+            let inputs = UiCtrl.getInput();
+      
+            // 2 - add the item to budget controller
+      
+            // 3 - add the item to the ui
+      
+            // 4 - calaculate the budget 
+            
+            // 5 - display the budget in the ui
+      
+          };
 
-        var inputs = UiCtrl.getInput();
-        console.log(inputs)
-  
-        // 2 - add the item to budget controller
-  
-        // 3 - add the item to the ui
-  
-        // 4 - calaculate the budget 
-        
-        // 5 - display the budget in the ui
-  
-      }
 
-  // add event when user click the add button
+     function setEventListeners () {
+      
 
-  add_btn.addEventListener('click', ctrlAddItem);
+        let DOM = UiCtrl.getDomStrings();
 
-  add_btn.addEventListener('keypress', function(e) {
-      let keyCode = e.keyCode;
+        let add_btn = document.querySelector(DOM.addInput);
+         
+         // add event when user click the add button
 
-      if(keyCode === 13 || e.which === 13) {
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
-      }
-  });
+        add_btn.addEventListener('click', ctrlAddItem);
 
-  // add event when the user click enter key 
+        add_btn.addEventListener('keypress', function(e) {
+            let keyCode = e.keyCode;
 
-  document.addEventListener('keypress', function(e) {
+            if(keyCode === 13 || e.which === 13) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        });
 
-     let keyCode = e.keyCode;
-     if(keyCode === 13 || e.which === 13) {
-        ctrlAddItem();
+        // add event when the user click enter key 
+
+        document.addEventListener('keypress', function(e) {
+
+            let keyCode = e.keyCode;
+            if(keyCode === 13 || e.which === 13) {
+                ctrlAddItem();
+            }
+        });
      }
 
+     return {
+         init : function() {
+            setEventListeners ();
+         }
+     }
 
-  
-  })
+   
     
 })(budgetController, UIController);
+
+controller.init();
