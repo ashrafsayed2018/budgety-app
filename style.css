@@ -275,3 +275,13 @@ h2 {
 
 .unpaid .item__percentage { box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1); }
 .unpaid:hover .item__description { font-weight: 900; }
+/* my image */
+.img-round {
+    display: block;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
